@@ -17,32 +17,38 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [{ month: "january", desktop: 1260, mobile: 570 }]
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
+    label: "Completed",
+    color: "#8BCE89",
   },
   mobile: {
-    label: "Mobile",
-    color: "hsl(var(--chart-2))",
+    label: "Pending",
+    color: "#EB4E31",
   },
 } satisfies ChartConfig
 
 export function RadialChart() {
-  const totalVisitors = chartData[0].desktop + chartData[0].mobile
+  const totalTasks = 100;
+
+  const chartData = [
+    {
+        pending: 80, 
+        completed: 20,
+    },
+  ];
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col border-2 border-white shadow-none bg-[#EDEDED]">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Radial Chart - Stacked</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Pending/Completed Tasks</CardTitle>
+        <CardDescription>Completion Status</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square w-full max-w-[250px]"
+          className="mx-auto aspect-square w-full max-w-[250px] h-[190px]"
         >
           <RadialBarChart
             data={chartData}
@@ -65,14 +71,14 @@ export function RadialChart() {
                           y={(viewBox.cy || 0) - 16}
                           className="fill-foreground text-2xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalTasks}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 4}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          Tasks
                         </tspan>
                       </text>
                     )
@@ -81,14 +87,14 @@ export function RadialChart() {
               />
             </PolarRadiusAxis>
             <RadialBar
-              dataKey="desktop"
+              dataKey="completed"
               stackId="a"
               cornerRadius={5}
               fill="var(--color-desktop)"
               className="stroke-transparent stroke-2"
             />
             <RadialBar
-              dataKey="mobile"
+              dataKey="pending"
               fill="var(--color-mobile)"
               stackId="a"
               cornerRadius={5}
@@ -99,7 +105,7 @@ export function RadialChart() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          Task completion improved by 12% this month {" "} <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
           Showing total visitors for the last 6 months

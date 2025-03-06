@@ -28,7 +28,7 @@ function Profile() {
         </h1>
       </div>
 
-      <div className="mt-6 flex flex-col gap-8">
+      <div className="mt-2 flex flex-col gap-8">
         <div className="grid grid-cols-2 gap-4">
           <div className="text-gray-400">
             <p>Total Tasks:</p>
