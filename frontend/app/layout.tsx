@@ -9,6 +9,7 @@ import MiniSidebar from "./components/MiniSidebar/MiniSidebar";
 import MainContentLayout from "@/providers/MainContentLayout";
 import SidebarProvider from "@/providers/SidebarProvider";
 import MainLayout from "@/providers/MainLayout";
+import { TasksProvider } from "@/context/taskContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Toaster position="top-center" />{" "}
         <UserContextProvider>
+          <TasksProvider>
           <div className="h-full flex overflow-hidden">
             <MiniSidebar />
             <div className="flex-1 flex flex-col">
@@ -49,6 +51,7 @@ export default function RootLayout({
             </div>
             <div></div>
           </div>
+          </TasksProvider>
         </UserContextProvider>
       </body>
     </html>
