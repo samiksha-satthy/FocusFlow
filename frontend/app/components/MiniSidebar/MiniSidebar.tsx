@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import {motion} from "framer-motion"
 
 function MiniSidebar() {
   const pathname = usePathname();
@@ -52,6 +53,16 @@ function MiniSidebar() {
           {navItems.map((item, index) => (
             <li key={index} className="relative group">
               <Link href={item.link}>{item.icon}</Link>
+                            {/* Tooltip (appears on hover) */}
+                            <motion.div
+                className="absolute left-full ml-3 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-opacity duration-200 whitespace-nowrap"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 0 }}
+                whileHover={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {item.title}
+              </motion.div>
             </li>
           ))}
         </ul>

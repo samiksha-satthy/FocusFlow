@@ -28,7 +28,6 @@ function Modal() {
   });
 
   useEffect(() => {
-    console.log("active tasl", activeTask);
     if (modalMode === "edit" && activeTask) {
       handleInput("setTask")(activeTask);
     }
@@ -48,7 +47,6 @@ function Modal() {
 
   return (
     <div className="fixed left-0 top-0 z-50 h-full w-full bg-[#333]/30 overflow-hidden">
-      modal
       <form
         ref={ref}
         action=""

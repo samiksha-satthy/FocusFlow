@@ -22,29 +22,28 @@ export const UserContextProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(false);
 
-    //get user details 
-    const getUser = async () => {
-      setLoading(true); 
-      try {
-        const res = await axios.get(`${serverUrl}/api/v1/profile`, {
-          withCredentials: true, //send cookies
-        }); 
-  
-        setUser((prevState) => {
-          return{
-            ...prevState, 
-            ...res.data,
-          }
-        }); 
-  
-        setLoading(false); 
-  
-      } catch (error) {
-        console.log("error getting user details", error);
-        setLoading(false); 
-        toast.error(error.response.data.message); 
-      }
+  //get user details
+  const getUser = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`${serverUrl}/api/v1/profile`, {
+        withCredentials: true, //send cookies
+      });
+
+      setUser((prevState) => {
+        return {
+          ...prevState,
+          ...res.data,
+        };
+      });
+
+      setLoading(false);
+    } catch (error) {
+      console.log("error getting user details", error);
+      setLoading(false);
+      toast.error(error.response.data.message);
     }
+  };
 
   //register user
   const registerUser = async (e) => {
@@ -104,11 +103,13 @@ export const UserContextProvider = ({ children }) => {
       router.push("/");
     } catch (error) {
       console.log("error logging in user", error);
-      const errorMessage = 
-      error?.response?.data?.message ||  // This assumes message is an object
-      (typeof error?.response?.data === 'string' ? error.response.data : null) || // If it's just a string
-      error?.message || 
-      "Something went wrong, please try again";
+      const errorMessage =
+        error?.response?.data?.message || // This assumes message is an object
+        (typeof error?.response?.data === "string"
+          ? error.response.data
+          : null) || // If it's just a string
+        error?.message ||
+        "Something went wrong, please try again";
 
       toast.error(errorMessage);
     }
@@ -137,31 +138,27 @@ export const UserContextProvider = ({ children }) => {
     return loggedIn;
   };
 
-  //logout user 
+  //logout user
   const logoutUser = async () => {
-
     try {
       const res = await axios.get(`${serverUrl}/api/v1/logout`, {
-        withCredentials: true, //send cookies 
-      }); 
+        withCredentials: true, //send cookies
+      });
 
-      toast.success("user logged out successfully"); 
+      toast.success("user logged out successfully");
 
-      //redirect to login page 
-      router.push("/login"); 
-
+      //redirect to login page
+      router.push("/login");
     } catch (error) {
-
-      console.log("error logging out user", error); 
-      toast.error(error.response.data.message); 
-      
+      console.log("error logging out user", error);
+      toast.error(error.response.data.message);
     }
-  }
+  };
 
   //update user details
   const updateUser = async (e, data) => {
     e.preventDefault();
-    setLoading(true); 
+    setLoading(true);
 
     try {
       const res = await axios.patch(`${serverUrl}/api/v1/update`, data, {
@@ -171,20 +168,19 @@ export const UserContextProvider = ({ children }) => {
       //update user state
       setUser((prevState) => {
         return {
-          ...prevState, 
+          ...prevState,
           ...res.data,
         };
       });
 
-      toast.success("user updated successfully")
+      toast.success("user updated successfully");
 
-      setLoading(false); 
+      setLoading(false);
     } catch (error) {
-      setLoading(false); 
-      toast.error(error.response.data.message); 
-      
+      setLoading(false);
+      toast.error(error.response.data.message);
     }
-  }; 
+  };
 
   //dynamic form handler
   const handlerUserInput = (name) => (e) => {
@@ -196,13 +192,22 @@ export const UserContextProvider = ({ children }) => {
     }));
   };
 
+  const changePassword = (password) => (e) => {
+    const value2 = e.target.value2; 
+
+    setUserState((prevState) => ({
+      ...prevState, 
+      [password]: value2,
+    }));
+  }
+
   //initial render
   useEffect(() => {
     const loginStatusGetUser = async () => {
       const isLoggedIn = await userLoginStatus();
       console.log("isLoggedIn", isLoggedIn);
 
-      if (isLoggedIn){
+      if (isLoggedIn) {
         getUser();
       }
     };
@@ -212,7 +217,17 @@ export const UserContextProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ registerUser, userState, handlerUserInput, loginUser, logoutUser, userLoginStatus, user, updateUser, }}
+      value={{
+        registerUser,
+        userState,
+        handlerUserInput,
+        loginUser,
+        logoutUser,
+        userLoginStatus,
+        user,
+        updateUser,
+        changePassword,
+      }}
     >
       {children}
     </UserContext.Provider>
