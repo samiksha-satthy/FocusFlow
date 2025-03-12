@@ -24,7 +24,7 @@ function TaskItem({ task }: TaskItemProps) {
     }
   };
 
-  const { getTask, openModalForEdit, deleteTask, modalMode } = useTasks();
+  const { getTask, openModalForEdit, deleteTask } = useTasks();
 
   return (
       <motion.div
@@ -62,7 +62,9 @@ function TaskItem({ task }: TaskItemProps) {
                 {edit}
               </button>
 
-              <button className="text-[#f65314]">{trash}</button>
+              <button className="text-[#f65314]" onClick={() => {
+                deleteTask(task._id)
+              }}>{trash}</button>
             </div>
           </div>
         </div>

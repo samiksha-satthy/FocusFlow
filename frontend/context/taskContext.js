@@ -126,7 +126,9 @@ export const TasksProvider = ({ children }) => {
   const deleteTask = async (taskId) => {
     setLoading(true);
     try {
-      const res = await axios.delete(`${serverUrl}/task/delete/${taskId}`);
+      const res = await axios.delete(`${serverUrl}/task/delete/${taskId}`, {
+        withCredentials: true,
+      });
 
       const newTasks = tasks.filter((tsk) => tsk._id !== taskId);
 

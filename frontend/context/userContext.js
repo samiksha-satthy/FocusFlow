@@ -148,7 +148,7 @@ export const UserContextProvider = ({ children }) => {
       toast.success("user logged out successfully");
 
       //redirect to login page
-      router.push("/login");
+      window.location.href = "/login";
     } catch (error) {
       console.log("error logging out user", error);
       toast.error(error.response.data.message);
@@ -182,6 +182,37 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
+  const updatePassword = async (currentPassword, newPassword) => {
+    setLoading(true);
+
+    try {
+      const res = await axios.patch(
+        `${serverUrl}/api/v1/update/password`,
+        {currentPassword, newPassword},
+        {
+          withCredentials: true,
+        }
+      );
+
+      //update user state
+      setUser((prevState) => {
+        return {
+          ...prevState,
+          ...res.data,
+        };
+      });
+
+      toast.success("password updated successfully");
+
+      console.log("neew password", user.password);
+
+      setLoading(false);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      setLoading(false);
+    }
+  };
+
   //dynamic form handler
   const handlerUserInput = (name) => (e) => {
     const value = e.target.value;
@@ -191,15 +222,6 @@ export const UserContextProvider = ({ children }) => {
       [name]: value,
     }));
   };
-
-  const changePassword = (password) => (e) => {
-    const value2 = e.target.value2; 
-
-    setUserState((prevState) => ({
-      ...prevState, 
-      [password]: value2,
-    }));
-  }
 
   //initial render
   useEffect(() => {
@@ -226,7 +248,7 @@ export const UserContextProvider = ({ children }) => {
         userLoginStatus,
         user,
         updateUser,
-        changePassword,
+        updatePassword,
       }}
     >
       {children}

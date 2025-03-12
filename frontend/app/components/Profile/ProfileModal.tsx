@@ -9,7 +9,7 @@ function ProfileModal() {
   const ref = React.useRef<HTMLDivElement | null>(null);
 
   const { closeModal } = useTasks();
-  const { user, updateUser, handlerUserInput, userState, changePassword } =
+  const { user, updateUser, handlerUserInput, userState, updatePassword } =
     useUserContext();
 
   //close when clicked anywhere
@@ -134,16 +134,13 @@ function ProfileModal() {
             <button
               type="button"
               className="py-3 px-4 bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-400 transition-all duration-300"
-              onClick={() => changePassword(oldPassword, newPassword)}
+              onClick={() => updatePassword(oldPassword, newPassword)}
             >
               Change Password
             </button>
           </div>
 
           <div className="flex justify-end gap-4 border-t-[#323232]/10">
-            <button className="mt-3 py-2 px-4 bg-transparent text-black text-sm font-medium rounded-md border-2 border-[#323232]/10 hover:bg-[#eb4e31] hover:border-transparent hover:text-white trabsition-all duration-300">
-              Cancel
-            </button>
             <button
               type="submit"
               className="mt-3 py-2 px-4 bg-[#3aafae] text-white text-sm font-medium rounded-md hover:bg-[#2e8d8c]/90 transition-all duration-300"

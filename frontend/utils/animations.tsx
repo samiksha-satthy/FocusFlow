@@ -1,3 +1,5 @@
+import { px } from "framer-motion";
+
 export const container = {
     hidden: {opacity: 0}, 
     visible: {
@@ -17,10 +19,10 @@ export const item = {
 export const sidebar = {
     hidden: {
         opacity: 0, 
-        x: -10,
+        x: 0,
     },
     visible: {
         opacity: 1,
-        x: 0,
+        x: 100,
     }
 }
