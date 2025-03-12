@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <main className="pr-[350px] pl-[40px] pr-6 pt-6 h-full">
-      <div className="flex items-center gap-190">
+      <div className="flex items-center gap-194">
         <h1 className="text-2xl font-bold">All Tasks</h1>
         <Filters />
       </div>

@@ -25,9 +25,9 @@ function Header() {
       <div className="">
         <h1 className="text-lg font-medium">
           <span role="img" aria-label="wave">
-            👋
+            Hello, {""}
           </span>
-          {userId ? `welcome ${name}!` : "welcome to le site"}
+          {userId ? `welcome ${name}!` : "welcome to FocusFlow!"}
         </h1>
         <p className="text-sm">
           {userId ? (
