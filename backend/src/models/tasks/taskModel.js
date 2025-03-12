@@ -9,6 +9,7 @@ const TaskSchema = new mongoose.Schema({
     
     description: {
         type: String, 
+        required: [true, "please provide description"],
         default: "no description",
     }, 
 
