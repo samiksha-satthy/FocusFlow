@@ -5,6 +5,7 @@ import { registerUser,
     getUser, 
     updateUser,
     userLoginStatus,
+    updatePassword,
 } from '../controllers/auth/userController.js';
 import { adminMiddleware, protect } from '../middleware/authMiddleware.js';
 import { deleteUser } from '../controllers/auth/adminController.js';
@@ -22,6 +23,9 @@ router.delete('/admin/users/:id', protect, adminMiddleware, deleteUser);
 
 //login status
 router.get('/login-status', userLoginStatus);
+
+//password change 
+router.patch('/update/password', protect, updatePassword); 
 
 
 
